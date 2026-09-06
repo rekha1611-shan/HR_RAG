@@ -1,0 +1,37 @@
+# Google App Engine Flexible configuration.
+# This file must be in the same directory as the Dockerfile.
+runtime: custom
+env: flex
+
+# Keep one instance for this Streamlit demo because conversation memory is
+# stored in process/session state. Increase this only after externalizing state.
+manual_scaling:
+  instances: 1
+
+resources:
+  cpu: 1
+  memory_gb: 2.0
+  disk_size_gb: 10
+
+# IMPORTANT:
+# Do not commit a real API key to source control.
+# Replace the placeholder before deployment, or use a secure deployment
+# workflow/Secret Manager integration for production.
+env_variables:
+  OPENAI_API_KEY: "REPLACE_WITH_OPENAI_API_KEY"
+  LANGCHAIN_TRACING_V2: "false"
+
+# Streamlit can take a little time to load Python packages and the FAISS index.
+liveness_check:
+  check_interval_sec: 30
+  timeout_sec: 4
+  failure_threshold: 4
+  success_threshold: 2
+  initial_delay_sec: 60
+
+readiness_check:
+  check_interval_sec: 10
+  timeout_sec: 4
+  failure_threshold: 4
+  success_threshold: 2
+  app_start_timeout_sec: 300
