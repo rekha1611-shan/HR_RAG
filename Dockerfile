@@ -28,8 +28,4 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
 
 # Shell form is intentional so $PORT is expanded at runtime.
 # App Engine provides PORT; 8080 is the safe fallback for local execution.
-CMD streamlit run app_with_memory.py \
-    --server.address=0.0.0.0 \
-    --server.port=${PORT:-8080} \
-    --server.headless=true \
-    --browser.gatherUsageStats=false
+CMD streamlit run app_with_memory.py   --server.address=0.0.0.0  --server.port=${PORT:-8080}  --server.headless=true  --browser.gatherUsageStats=false
